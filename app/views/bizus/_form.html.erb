@@ -1,0 +1,60 @@
+<%= form_for @bizu, :html => { :multipart => true } do |f| %>
+  <% if @bizu.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bizu.errors.count, "error") %> prohibited this bizu from being saved:</h2>
+
+      <ul>
+      <% @bizu.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br />
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :icon %><br />
+    <%= f.file_field :icon %>
+  </div>
+  <div class="field">
+    <a id="add_bizu_file" href="javascript:void(0);">Add file</a>
+  </div>
+  <div id="bizu_files" class="field">
+    <%= text_field_tag :bizu_files, '', :id => :'bizu_files[0][name]', :name => :'bizu_files[0][name]', :size => 30 %>
+    <%= file_field_tag :bizu_files,     :id => :'bizu_files[0][file]', :name => :'bizu_files[0][file]' %>
+    <% @bizu.bizu_files.each do |bizu_file| %>
+      <div id="bizu_file_<%= bizu_file.id %>">
+        <%= bizu_file.name %>
+        <%= link_to 'Delete', delete_bizu_file_bizu_path(@bizu, :bizu_file_id => bizu_file.id, :format => :js), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+      </div>
+    <% end %>
+  </div>
+  <script>
+    function addBizuFile(){
+      if( $('bizu_files').counter == undefined ){
+        $('bizu_files').counter = 1;
+      }else{
+        $('bizu_files').counter++;
+      }
+      var input_name = "<input id=\"bizu_files["+ $('bizu_files').counter +"][name]\" name=\"bizu_files["+ $('bizu_files').counter +"][name]\" type=\"text\" size=\"30\"> ";
+      var input_file = "<input id=\"bizu_files["+ $('bizu_files').counter +"][file]\" name=\"bizu_files["+ $('bizu_files').counter +"][file]\" type=\"file\"><br/>";
+      $('bizu_files').insert({ top: input_name + input_file });
+    }
+
+    $('add_bizu_file').observe('click', addBizuFile);
+  </script>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

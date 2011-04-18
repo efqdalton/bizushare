@@ -1,0 +1,35 @@
+<div style="clear: both">
+  <p id="notice"><%= notice %></p>
+
+  <div style="float: left; padding: 20px"><%= image_tag @bizu.icon.url :medium %></div>
+
+  <div style="padding: 20px">
+    <p>
+      <b>Name:</b>
+      <%= @bizu.name %>
+    </p>
+
+    <p>
+      <b>Category:</b>
+      <%= @bizu.category %>
+    </p>
+
+    <p>
+      <b>Description:</b>
+      <%= @bizu.description %>
+    </p>
+
+    <p>
+      <b>BizuFiles:</b>
+      <% @bizu.bizu_files.each do |bizu_file| %>
+        <br/><%= link_to bizu_file.name, bizu_file.file.url %>
+      <% end %>
+    </p>
+  </div>
+
+</div>
+
+<div>
+  <%= link_to 'Edit', edit_bizu_path(@bizu) %> |
+  <%= link_to 'Back', bizus_path %>
+</div>

@@ -1,0 +1,16 @@
+<% bizus.each do |bizu| %>
+  <div style="clear: both">
+    <div style="float: left; padding: 5px"><%= image_tag bizu.icon.url :thumb %></div>
+    <div style="padding: 5px">
+      <div>
+        <h4><%= bizu.name %> - <%= bizu.category %></h4>
+        <%= bizu.description %>
+      </div>
+      <div>
+        <%= link_to 'Show', bizu %>
+        <%= link_to 'Edit', edit_bizu_path(bizu) %>
+        <%= link_to 'Destroy', bizu, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    </div>
+  </div>
+<% end %>

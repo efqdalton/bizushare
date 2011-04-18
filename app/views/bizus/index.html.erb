@@ -1,0 +1,26 @@
+<div style="margin-top: 20px; text-align: center;">
+  <%= image_tag 'rapidshare.jpg'%>
+
+  <% form_tag search_bizus_path, :method => :get do %>
+    <%= text_field_tag :query, nil, :size => 60 %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+
+  <div>
+    <%= link_to 'Livros', search_bizus_path(:category => 'Livro') %> |
+    <%= link_to 'DVDs', search_bizus_path(:category => 'DVD') %>
+  </div>
+</div>
+
+<hr style="clear: both"/>
+
+<div style="clear: both; position: absolute; right: 10px;">
+  <%= link_to 'New Bizu', new_bizu_path %>
+</div>
+
+
+<%= render 'listing', :bizus => @bizus %>
+
+<div style="clear: both">
+  <%= will_paginate @bizus %>
+</div>

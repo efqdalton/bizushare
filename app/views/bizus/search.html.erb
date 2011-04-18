@@ -1,0 +1,17 @@
+<div>
+  <%= link_to 'Livros', search_bizus_path(:category => 'Livro') %> |
+  <%= link_to 'DVDs', search_bizus_path(:category => 'DVD') %>
+</div>
+
+<% form_tag search_bizus_path, :method => :get do %>
+  <%= text_field_tag :query, nil, :size => 60 %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<hr style="clear: both"/>
+
+<%= render 'listing', :bizus => @bizus.results %>
+
+<div style="clear: both">
+  <%= will_paginate @bizus.hits %>
+</div>
